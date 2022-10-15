@@ -15,6 +15,6 @@ public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
         LOG.info("App started at: " + LocalDateTime.now());
-        System.out.println("Go to http://localhost:8080");
+        System.out.println("Go to http://localhost:8080/index");
     }
 }

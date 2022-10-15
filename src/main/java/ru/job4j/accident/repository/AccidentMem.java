@@ -18,4 +18,19 @@ public class AccidentMem {
     public Collection<Accident> findAll() {
         return accidents.values();
     }
+
+    public void update(Accident accident) {
+        accidents.put(accident.getId(), accident);
+    }
+
+    public Accident findById(int id) {
+        return accidents.get(id);
+    }
+
+    public int findMaxId() {
+        return accidents.keySet().stream()
+                .mapToInt(value -> value)
+                .max()
+                .orElse(1);
+    }
 }

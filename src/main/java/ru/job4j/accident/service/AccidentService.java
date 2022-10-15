@@ -40,4 +40,16 @@ public class AccidentService {
                 .stream()
                 .toList();
     }
+
+    public void update(Accident accident) {
+        accidentMem.update(accident);
+    }
+
+    public Accident findById(int id) {
+        return accidentMem.findById(id);
+    }
+
+    public int findMaxId() {
+        return accidentMem.findMaxId();
+    }
 }
