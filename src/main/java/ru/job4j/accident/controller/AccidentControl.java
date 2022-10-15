@@ -40,7 +40,7 @@ public class AccidentControl {
 
     @PostMapping("/editAccident")
     public String edit(@ModelAttribute Accident accident) {
-        accidentService.update(accident);
+        accidentService.add(accident);
         return "redirect:/index";
     }
 
