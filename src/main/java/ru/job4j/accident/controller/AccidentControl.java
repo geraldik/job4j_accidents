@@ -26,27 +26,32 @@ public class AccidentControl {
 
     @GetMapping("/createAccident")
     public String viewCreateAccident(Model model) {
+        model.addAttribute("types", accidentService.findAllAccidentTypes());
         int maxId = accidentService.findMaxId();
-        int lastId = ++maxId;
-        model.addAttribute("lastId", lastId);
+        model.addAttribute("lastId", ++maxId);
         return "createAccident";
     }
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident) {
+        int typeId = accident.getType().getId();
+        accident.setType(accidentService.findAccidentTypeById(typeId));
         accidentService.add(accident);
         return "redirect:/index";
     }
 
     @PostMapping("/editAccident")
     public String edit(@ModelAttribute Accident accident) {
+        int typeId = accident.getType().getId();
+        accident.setType(accidentService.findAccidentTypeById(typeId));
         accidentService.add(accident);
         return "redirect:/index";
     }
 
     @GetMapping("/formEditAccident/{AccidentId}")
     public String formEditAccident(Model model, @PathVariable("AccidentId") int id) {
-        model.addAttribute("accident", accidentService.findById(id));
+        model.addAttribute("accident", accidentService.findAccidentById(id));
+        model.addAttribute("types", accidentService.findAllAccidentTypes());
         return "editAccident";
     }
 }

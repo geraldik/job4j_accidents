@@ -2,8 +2,10 @@ package ru.job4j.accident.service;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
+import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.repository.AccidentMem;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -13,22 +15,6 @@ public class AccidentService {
 
     public AccidentService(AccidentMem accidentMem) {
         this.accidentMem = accidentMem;
-        initAccidents();
-    }
-
-    private void initAccidents() {
-        Accident accident1 = new Accident(1, "Проезд на запрещающий сигнал светофора",
-                "Водитель проехал перекресток на красный цвет светофора",
-                "г. Москва, ул. Арбат, д.1");
-        Accident accident2 = new Accident(2, "Превышение скорости от 20 до 40 км/ч",
-                "Водитель ехал со скоростью 65 км/ч на участке с разрешенной скоростью 40 км/ч",
-                "г. Москва, Варшавское шоссе, д.58");
-        Accident accident3 = new Accident(3, "Не соблюдение требований дорожной разметки",
-                "Водитель выполнил разворот через сплошную линию",
-                "г. Москва, ул.Нагорный проезд, д.13");
-        this.add(accident1);
-        this.add(accident2);
-        this.add(accident3);
     }
 
     public void add(Accident accident) {
@@ -36,16 +22,24 @@ public class AccidentService {
     }
 
     public List<Accident> findAll() {
-        return accidentMem.findAll()
+        return accidentMem.findAllAccidents()
                 .stream()
                 .toList();
     }
 
-    public Accident findById(int id) {
-        return accidentMem.findById(id);
+    public Accident findAccidentById(int id) {
+        return accidentMem.findAccidentById(id);
+    }
+
+    public AccidentType findAccidentTypeById(int id) {
+        return accidentMem.findAccidentTypeById(id);
     }
 
     public int findMaxId() {
         return accidentMem.findMaxId();
+    }
+
+    public Collection<AccidentType> findAllAccidentTypes() {
+        return accidentMem.findAllAccidentTypes();
     }
 }
