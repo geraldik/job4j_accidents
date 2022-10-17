@@ -5,7 +5,6 @@ import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.repository.AccidentMem;
 
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -22,9 +21,7 @@ public class AccidentService {
     }
 
     public List<Accident> findAll() {
-        return accidentMem.findAllAccidents()
-                .stream()
-                .toList();
+        return accidentMem.findAllAccidents();
     }
 
     public Accident findAccidentById(int id) {
@@ -35,7 +32,7 @@ public class AccidentService {
         return accidentMem.findAccidentTypeById(id);
     }
 
-    public Collection<AccidentType> findAllAccidentTypes() {
+    public List<AccidentType> findAllAccidentTypes() {
         return accidentMem.findAllAccidentTypes();
     }
 

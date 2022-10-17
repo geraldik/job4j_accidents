@@ -4,8 +4,9 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
@@ -25,8 +26,8 @@ public class AccidentMem {
         accidents.put(accident.getId(), accident);
     }
 
-    public Collection<Accident> findAllAccidents() {
-        return accidents.values();
+    public List<Accident> findAllAccidents() {
+        return new ArrayList<>(accidents.values());
     }
 
     public Accident findAccidentById(int id) {
@@ -43,18 +44,11 @@ public class AccidentMem {
         accidentTypes.put(3, new AccidentType(3, "Машина и велосипед"));
     }
 
-    public Collection<AccidentType> findAllAccidentTypes() {
-        return accidentTypes.values();
+    public List<AccidentType> findAllAccidentTypes() {
+        return new ArrayList<>(accidentTypes.values());
     }
 
-    public int findMaxId() {
-        return accidents.keySet().stream()
-                .mapToInt(value -> value)
-                .max()
-                .orElse(0);
-    }
-
-    public int incrementAndGet() {
+      public int incrementAndGet() {
         return id.incrementAndGet();
     }
 }
