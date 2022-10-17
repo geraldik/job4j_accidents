@@ -31,7 +31,7 @@
       </div>
       <div class="card-body">
         <form th:action="@{/saveAccident}" method="POST" enctype="multipart/form-data">
-          <input type="hidden" name="id" th:value="${lastId}"/>
+          <input type="hidden" name="id" th:value="${id}"/>
           <div class="form-group">
             <label for="name">Название нарушения</label>
             <input type="text" class="form-control" name="name" id="name">

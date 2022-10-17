@@ -27,8 +27,7 @@ public class AccidentControl {
     @GetMapping("/createAccident")
     public String viewCreateAccident(Model model) {
         model.addAttribute("types", accidentService.findAllAccidentTypes());
-        int maxId = accidentService.findMaxId();
-        model.addAttribute("lastId", ++maxId);
+        model.addAttribute("id", accidentService.incrementAndGet());
         return "createAccident";
     }
 

@@ -35,11 +35,11 @@ public class AccidentService {
         return accidentMem.findAccidentTypeById(id);
     }
 
-    public int findMaxId() {
-        return accidentMem.findMaxId();
-    }
-
     public Collection<AccidentType> findAllAccidentTypes() {
         return accidentMem.findAllAccidentTypes();
+    }
+
+    public int incrementAndGet() {
+        return accidentMem.incrementAndGet();
     }
 }

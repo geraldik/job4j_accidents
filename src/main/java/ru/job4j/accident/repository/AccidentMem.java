@@ -6,6 +6,7 @@ import ru.job4j.accident.model.AccidentType;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class AccidentMem {
@@ -13,6 +14,8 @@ public class AccidentMem {
     private final HashMap<Integer, Accident> accidents = new HashMap<>();
 
     private final  HashMap<Integer, AccidentType> accidentTypes = new HashMap<>();
+
+    private final AtomicInteger id = new AtomicInteger(0);
 
     public AccidentMem() {
         initAccidentTypes();
@@ -49,5 +52,9 @@ public class AccidentMem {
                 .mapToInt(value -> value)
                 .max()
                 .orElse(0);
+    }
+
+    public int incrementAndGet() {
+        return id.incrementAndGet();
     }
 }
