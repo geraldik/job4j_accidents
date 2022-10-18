@@ -32,11 +32,7 @@ public class AccidentService {
         return accidentMem.findAccidentTypeById(id);
     }
 
-    public List<AccidentType> findAllAccidentTypes() {
-        return accidentMem.findAllAccidentTypes();
-    }
-
-    public int incrementAndGet() {
-        return accidentMem.incrementAndGet();
+    public List<AccidentType> getAccidentTypes() {
+        return accidentMem.getAccidentTypes();
     }
 }

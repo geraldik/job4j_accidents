@@ -26,8 +26,7 @@ public class AccidentControl {
 
     @GetMapping("/createAccident")
     public String viewCreateAccident(Model model) {
-        model.addAttribute("types", accidentService.findAllAccidentTypes());
-        model.addAttribute("id", accidentService.incrementAndGet());
+        model.addAttribute("types", accidentService.getAccidentTypes());
         return "createAccident";
     }
 
@@ -50,7 +49,7 @@ public class AccidentControl {
     @GetMapping("/formEditAccident/{AccidentId}")
     public String formEditAccident(Model model, @PathVariable("AccidentId") int id) {
         model.addAttribute("accident", accidentService.findAccidentById(id));
-        model.addAttribute("types", accidentService.findAllAccidentTypes());
+        model.addAttribute("types", accidentService.getAccidentTypes());
         return "editAccident";
     }
 }
