@@ -44,7 +44,8 @@ public class AccidentControl {
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
-        List<Integer> ids = convertStingArrToIntList(req.getParameterValues("rIds"));
+        String [] arrIds = req.getParameterValues("rIds");
+        List<Integer> ids = convertStingArrToIntList(arrIds);
         List<Rule> ruleList = ruleService.getByIds(ids);
         accident.setRules(ruleList);
         int typeId = accident.getType().getId();
