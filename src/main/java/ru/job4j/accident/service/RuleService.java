@@ -19,7 +19,7 @@ public class RuleService {
         return ruleMem.getRules();
     }
 
-    public List<Rule> getByIds(List<Integer> ids) {
+    public List<Rule> getByIds(String[] ids) {
         return ruleMem.getByIds(ids);
     }
 }

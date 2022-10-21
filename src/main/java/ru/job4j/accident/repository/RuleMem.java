@@ -25,8 +25,10 @@ public class RuleMem {
         return new ArrayList<>(rules.values());
     }
 
-    public List<Rule> getByIds(List<Integer> ids) {
-        return ids.stream()
+    public List<Rule> getByIds(String[] ids) {
+        return Arrays.stream(ids)
+                .mapToInt(Integer::parseInt)
+                .boxed()
                 .map(rules::get)
                 .collect(Collectors.toList());
     }

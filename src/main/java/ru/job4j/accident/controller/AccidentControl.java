@@ -15,7 +15,6 @@ import ru.job4j.accident.service.AccidentTypeService;
 import ru.job4j.accident.service.RuleService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -44,8 +43,7 @@ public class AccidentControl {
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
-        List<Integer> ids = convertStingArrToIntList(req.getParameterValues("rIds"));
-        List<Rule> ruleList = ruleService.getByIds(ids);
+        List<Rule> ruleList = ruleService.getByIds(req.getParameterValues("rIds"));
         accident.setRules(ruleList);
         int typeId = accident.getType().getId();
         AccidentType accidentType = accidentTypeService.findAccidentTypeById(typeId);
@@ -69,12 +67,5 @@ public class AccidentControl {
         model.addAttribute("types", accidentTypeService.getAccidentTypes());
         model.addAttribute("rules", ruleService.getRules());
         return "editAccident";
-    }
-
-    private List<Integer> convertStingArrToIntList(String[] ids) {
-        return Arrays.stream(ids)
-                .mapToInt(Integer::parseInt)
-                .boxed()
-                .toList();
     }
 }
