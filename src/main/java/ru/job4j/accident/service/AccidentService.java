@@ -2,29 +2,41 @@ package ru.job4j.accident.service;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.repository.AccidentMem;
+import ru.job4j.accident.model.AccidentType;
+import ru.job4j.accident.model.Rule;
+import ru.job4j.accident.repository.AccidentJdbcTemplate;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class AccidentService {
 
-    private final AccidentMem accidentMem;
+    private final AccidentJdbcTemplate accidentJdbcTemplate;
 
-    public AccidentService(AccidentMem accidentMem) {
-        this.accidentMem = accidentMem;
+    public AccidentService(AccidentJdbcTemplate accidentJdbcTemplate) {
+        this.accidentJdbcTemplate = accidentJdbcTemplate;
     }
 
-    public void add(Accident accident) {
-        accidentMem.add(accident);
+    public void save(Accident accident) {
+        accidentJdbcTemplate.save(accident);
     }
 
     public List<Accident> findAll() {
-        return accidentMem.findAllAccidents();
+        return accidentJdbcTemplate.findAll();
     }
 
-    public Accident findAccidentById(int id) {
-        return accidentMem.findAccidentById(id);
+    public Accident findById(int id) {
+        return accidentJdbcTemplate
+                .findById(id)
+                .orElseThrow(NoSuchElementException::new);
     }
 
+    public boolean update(Accident accident) {
+        return accidentJdbcTemplate.update(accident);
+    }
+
+    public List<Rule> getRulesByIds(String[] rIds) {
+        return accidentJdbcTemplate.getRulesByIds(rIds);
+    }
 }

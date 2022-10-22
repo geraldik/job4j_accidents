@@ -43,27 +43,23 @@ public class AccidentControl {
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
-        List<Rule> ruleList = ruleService.getByIds(req.getParameterValues("rIds"));
+        List<Rule> ruleList = accidentService.getRulesByIds(req.getParameterValues("rIds"));
         accident.setRules(ruleList);
-        int typeId = accident.getType().getId();
-        AccidentType accidentType = accidentTypeService.findAccidentTypeById(typeId);
-        accident.setType(accidentType);
-        accidentService.add(accident);
+        accidentService.save(accident);
         return "redirect:/index";
     }
 
     @PostMapping("/editAccident")
-    public String edit(@ModelAttribute Accident accident) {
-        int typeId = accident.getType().getId();
-        AccidentType accidentType = accidentTypeService.findAccidentTypeById(typeId);
-        accident.setType(accidentType);
-        accidentService.add(accident);
+    public String edit(@ModelAttribute Accident accident, HttpServletRequest req) {
+        List<Rule> ruleList = accidentService.getRulesByIds(req.getParameterValues("rIds"));
+        accident.setRules(ruleList);
+        accidentService.update(accident);
         return "redirect:/index";
     }
 
     @GetMapping("/formEditAccident/{AccidentId}")
     public String formEditAccident(Model model, @PathVariable("AccidentId") int id) {
-        model.addAttribute("accident", accidentService.findAccidentById(id));
+        model.addAttribute("accident", accidentService.findById(id));
         model.addAttribute("types", accidentTypeService.getAccidentTypes());
         model.addAttribute("rules", ruleService.getRules());
         return "editAccident";

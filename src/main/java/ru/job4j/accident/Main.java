@@ -1,4 +1,4 @@
-package ru.job4j.accident.controller;
+package ru.job4j.accident;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

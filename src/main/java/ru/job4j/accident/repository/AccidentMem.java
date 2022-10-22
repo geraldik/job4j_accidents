@@ -13,18 +13,18 @@ public class AccidentMem {
 
     private final AtomicInteger id = new AtomicInteger(0);
 
-    public void add(Accident accident) {
+    public void save(Accident accident) {
         if (accident.getId() == 0) {
             accident.setId(id.incrementAndGet());
         }
         accidents.put(accident.getId(), accident);
     }
 
-    public List<Accident> findAllAccidents() {
+    public List<Accident> findAll() {
         return new ArrayList<>(accidents.values());
     }
 
-    public Accident findAccidentById(int id) {
-        return accidents.get(id);
+    public Optional<Accident> findById(int id) {
+        return Optional.ofNullable(accidents.get(id));
     }
 }

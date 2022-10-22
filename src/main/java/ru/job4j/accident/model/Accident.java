@@ -22,6 +22,14 @@ public class Accident {
     private AccidentType type;
     private Set<Rule> rules = new HashSet<>();
 
+    public Accident(int id, String name, String text, String address, AccidentType type) {
+        this.id = id;
+        this.name = name;
+        this.text = text;
+        this.address = address;
+        this.type = type;
+    }
+
     public Set<Rule> getRules() {
         return Set.copyOf(rules);
     }
