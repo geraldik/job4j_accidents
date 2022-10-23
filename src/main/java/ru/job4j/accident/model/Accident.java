@@ -17,15 +17,15 @@ public class Accident {
     @EqualsAndHashCode.Include
     private int id;
     private String name;
-    private String text;
+    private String description;
     private String address;
     private AccidentType type;
     private Set<Rule> rules = new HashSet<>();
 
-    public Accident(int id, String name, String text, String address, AccidentType type) {
+    public Accident(int id, String name, String description, String address, AccidentType type) {
         this.id = id;
         this.name = name;
-        this.text = text;
+        this.description = description;
         this.address = address;
         this.type = type;
     }

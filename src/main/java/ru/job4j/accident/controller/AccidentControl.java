@@ -59,7 +59,9 @@ public class AccidentControl {
 
     @GetMapping("/formEditAccident/{AccidentId}")
     public String formEditAccident(Model model, @PathVariable("AccidentId") int id) {
-        model.addAttribute("accident", accidentService.findById(id));
+        var accident = accidentService.findById(id);
+        model.addAttribute("accident", accident);
+        model.addAttribute("selectedRule", accident.getRules());
         model.addAttribute("types", accidentTypeService.getAccidentTypes());
         model.addAttribute("rules", ruleService.getRules());
         return "editAccident";

@@ -51,7 +51,7 @@
                 <div th:each="rule: ${accident.rules}"
                      th:text="${rule.name}"></div>
             </td>
-            <td th:text="${accident.text}"></td>
+            <td th:text="${accident.getDescription}"></td>
             <td th:text="${accident.address}"></td>
         </tr>
         </tbody>

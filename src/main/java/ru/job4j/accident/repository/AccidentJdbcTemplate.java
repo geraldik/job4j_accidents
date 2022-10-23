@@ -25,10 +25,10 @@ public class AccidentJdbcTemplate {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbc.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(
-                    "insert into accident (name, text, address, accident_type_id) values (?, ?, ?, ?)",
+                    "insert into accident (name, description, address, accident_type_id) values (?, ?, ?, ?)",
                     new String[]{"id"});
             ps.setString(1, accident.getName());
-            ps.setString(2, accident.getText());
+            ps.setString(2, accident.getDescription());
             ps.setString(3, accident.getAddress());
             ps.setInt(4, accident.getType().getId());
             return ps;
@@ -45,7 +45,7 @@ public class AccidentJdbcTemplate {
                     Accident accident = new Accident();
                     accident.setId(rs.getInt("id"));
                     accident.setName(rs.getString("name"));
-                    accident.setText(rs.getString("text"));
+                    accident.setDescription(rs.getString("description"));
                     accident.setAddress(rs.getString("address"));
                     accident.setType(getType(rs.getInt(("accident_type_id"))));
                     var id = accident.getId();
@@ -59,7 +59,7 @@ public class AccidentJdbcTemplate {
                 (rs, row) -> new Accident(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getString("text"),
+                        rs.getString("description"),
                         rs.getString("address"),
                         getType(rs.getInt("accident_type_id"))), id);
         if (result != null) {
@@ -92,8 +92,8 @@ public class AccidentJdbcTemplate {
     public boolean update(Accident accident) {
         int id = accident.getId();
         var count = jdbc.update("update accident set "
-                        + "name = ?, text = ?, address = ?, accident_type_id = ? where id = ?",
-                accident.getName(), accident.getText(), accident.getAddress(),
+                        + "name = ?, description = ?, address = ?, accident_type_id = ? where id = ?",
+                accident.getName(), accident.getDescription(), accident.getAddress(),
                 accident.getType().getId(), id);
         updateRules(accident.getRules(), id);
         return count > 0;
@@ -114,13 +114,6 @@ public class AccidentJdbcTemplate {
 
     private void clearAccidentRules(int id) {
         jdbc.update("delete from accident_rule where accident_id = ?", id);
-    }
-
-    public List<AccidentType> getAccidentTypes() {
-        return jdbc.query("select * from accident_type",
-                (rs, row) -> new AccidentType(
-                        rs.getInt("id"),
-                        rs.getString("name")));
     }
 
     public List<Rule> getRulesByIds(String[] rIds) {

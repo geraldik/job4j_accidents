@@ -1,8 +1,8 @@
 package ru.job4j.accident.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.repository.AccidentJdbcTemplate;
 
@@ -10,13 +10,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@AllArgsConstructor
 public class AccidentService {
 
     private final AccidentJdbcTemplate accidentJdbcTemplate;
-
-    public AccidentService(AccidentJdbcTemplate accidentJdbcTemplate) {
-        this.accidentJdbcTemplate = accidentJdbcTemplate;
-    }
 
     public void save(Accident accident) {
         accidentJdbcTemplate.save(accident);
