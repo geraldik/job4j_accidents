@@ -3,8 +3,7 @@ package ru.job4j.accident.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.AccidentJdbcTemplate;
+import ru.job4j.accident.repository.AccidentHibernate;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -13,27 +12,23 @@ import java.util.NoSuchElementException;
 @AllArgsConstructor
 public class AccidentService {
 
-    private final AccidentJdbcTemplate accidentJdbcTemplate;
+    private final AccidentHibernate accidentsRepository;
 
     public void save(Accident accident) {
-        accidentJdbcTemplate.save(accident);
+        accidentsRepository.save(accident);
     }
 
     public List<Accident> findAll() {
-        return accidentJdbcTemplate.findAll();
+        return accidentsRepository.findAll();
     }
 
     public Accident findById(int id) {
-        return accidentJdbcTemplate
+        return accidentsRepository
                 .findById(id)
                 .orElseThrow(NoSuchElementException::new);
     }
 
-    public boolean update(Accident accident) {
-        return accidentJdbcTemplate.update(accident);
-    }
-
-    public List<Rule> getRulesByIds(String[] rIds) {
-        return accidentJdbcTemplate.getRulesByIds(rIds);
+    public void update(Accident accident) {
+        accidentsRepository.update(accident);
     }
 }

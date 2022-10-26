@@ -15,7 +15,7 @@ import ru.job4j.accident.service.AccidentTypeService;
 import ru.job4j.accident.service.RuleService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @AllArgsConstructor
@@ -43,7 +43,11 @@ public class AccidentControl {
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
-        List<Rule> ruleList = accidentService.getRulesByIds(req.getParameterValues("rIds"));
+        String[] ids = req.getParameterValues("rIds");
+        Set<Rule> ruleList = new HashSet<>();
+        for (String id: ids) {
+            ruleList.add(ruleService.findById(Integer.parseInt(id)));
+        }
         accident.setRules(ruleList);
         accidentService.save(accident);
         return "redirect:/index";
@@ -51,7 +55,11 @@ public class AccidentControl {
 
     @PostMapping("/editAccident")
     public String edit(@ModelAttribute Accident accident, HttpServletRequest req) {
-        List<Rule> ruleList = accidentService.getRulesByIds(req.getParameterValues("rIds"));
+        String[] ids = req.getParameterValues("rIds");
+        Set<Rule> ruleList = new HashSet<>();
+        for (String id: ids) {
+            ruleList.add(ruleService.findById(Integer.parseInt(id)));
+        }
         accident.setRules(ruleList);
         accidentService.update(accident);
         return "redirect:/index";

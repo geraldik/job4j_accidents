@@ -5,21 +5,34 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.*;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
+@Table(name = "accident")
 public class Accident {
     @EqualsAndHashCode.Include
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String description;
     private String address;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinColumn(name = "accident_type_id")
     private AccidentType type;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinTable(
+            name = "accident_rule",
+            joinColumns = {@JoinColumn(name = "accident_id")},
+            inverseJoinColumns = {@JoinColumn(name = "rule_id")}
+    )
     private Set<Rule> rules = new HashSet<>();
 
     public Accident(int id, String name, String description, String address, AccidentType type) {
@@ -28,10 +41,6 @@ public class Accident {
         this.description = description;
         this.address = address;
         this.type = type;
-    }
-
-    public Set<Rule> getRules() {
-        return Set.copyOf(rules);
     }
 
     public void setRules(Collection<Rule> collection) {
