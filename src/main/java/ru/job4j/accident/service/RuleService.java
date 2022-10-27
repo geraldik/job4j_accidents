@@ -1,26 +1,31 @@
 package ru.job4j.accident.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.RuleHibernate;
+import ru.job4j.accident.repository.RuleRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
+@AllArgsConstructor
 public class RuleService {
 
-    private final RuleHibernate ruleHibernate;
-
-    public RuleService(RuleHibernate ruleHibernate) {
-        this.ruleHibernate = ruleHibernate;
-    }
+    private final RuleRepository ruleRepository;
 
     public List<Rule> getRules() {
-        return ruleHibernate.getRules();
+        List<Rule> rules = new ArrayList<>();
+        ruleRepository.findAll()
+                .forEach(rules::add);
+        return rules;
     }
 
     public Rule findById(int id) {
-        return ruleHibernate.findById(id);
+        return ruleRepository
+                .findById(id)
+                .orElseThrow(NoSuchElementException::new);
     }
 }
 

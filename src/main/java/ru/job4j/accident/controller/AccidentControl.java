@@ -55,6 +55,8 @@ public class AccidentControl {
 
     @PostMapping("/editAccident")
     public String edit(@ModelAttribute Accident accident, HttpServletRequest req) {
+        var type = accidentTypeService.findById(accident.getType().getId());
+        accident.setType(type);
         String[] ids = req.getParameterValues("rIds");
         Set<Rule> ruleList = new HashSet<>();
         for (String id: ids) {

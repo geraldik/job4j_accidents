@@ -14,6 +14,12 @@ import java.util.*;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "accident")
+@NamedEntityGraph(name = "accident-entity-graph",
+        attributeNodes = {
+                @NamedAttributeNode("rules"),
+                @NamedAttributeNode("type")
+        }
+)
 public class Accident {
     @EqualsAndHashCode.Include
     @Id
@@ -23,7 +29,7 @@ public class Accident {
     private String description;
     private String address;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "accident_type_id")
     private AccidentType type;
 
