@@ -24,7 +24,10 @@
                 <a class="nav-item nav-link active" href="#">Главная</a>
                 <a class="nav-item nav-link" th:href="@{/accidents}">Нарушения</a>
                 <a class="nav-item nav-link" th:href="@{/createAccident}">Добавить нарушение</a>
-                <a class="nav-item nav-link" th:href="@{/logout}">Выйти</a>
+                <a  class="nav-item nav-link" th:href="@{/logout}">
+                    <span th:text="${user.username}"></span>
+                    <span> | Выйти</span>
+                </a>
             </div>
         </div>
     </nav>
