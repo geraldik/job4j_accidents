@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="card" style="width: 100%">
+    <div class="card-header" >
+      Регистрация нового пользователя.
+    </div>
+    <div class="card-body">
+      <form th:action="@{/reg}" method="POST">
+        <div class="form-group">
+          <label for="username">Имя</label>
+          <input type="text" class="form-control" name="username" id="username"
+                 placeholder="Введите имя">
+          <br>
+          <label for="password">Пароль</label>
+          <input type="text" class="form-control" name="password" id="password"
+                 placeholder="Введите пароль">
+          <br>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+      </form>
+    </div>
+  </div>
+</div>
