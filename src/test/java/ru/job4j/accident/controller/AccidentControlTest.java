@@ -37,4 +37,13 @@ class AccidentControlTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("createAccident"));
     }
+
+    @Test
+    @WithMockUser
+    public void checkEditFormPage() throws Exception {
+        this.mockMvc.perform(get("/formEditAccident/1").param("id", "1"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("editAccident"));
+    }
 }

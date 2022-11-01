@@ -24,29 +24,23 @@
         <spring.version>5.3.23</spring.version>
     </properties>
 
-    <profiles>
-        <profile>
-            <id>test</id>
-            <properties>
-                <db.url>jdbc:h2:./testdb;MODE=PostgreSQL;CASE_INSENSITIVE_IDENTIFIERS=TRUE;</db.url>
-                <db.username/>
-                <db.password/>
-                <db.driver>org.h2.Driver</db.driver>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <id>production</id>
-            <properties>
-                <db.url>jdbc:postgresql://127.0.0.1:5432/auto_crash</db.url>
-                <db.username>postgres</db.username>
-                <db.password>password</db.password>
-                <db.driver>org.postgresql.Driver</db.driver>
-            </properties>
-        </profile>
-    </profiles>
+        <profiles>
+            <profile>
+                <id>test</id>
+                <properties>
+                    <liquibase.config>db/liquibase_test.properties</liquibase.config>
+                </properties>
+                <activation>
+                    <activeByDefault>true</activeByDefault>
+                </activation>
+            </profile>
+            <profile>
+                <id>production</id>
+                <properties>
+                    <liquibase.config>db/liquibase.properties</liquibase.config>
+                </properties>
+            </profile>
+        </profiles>
 
     <dependencies>
         <dependency>
@@ -164,6 +158,11 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>4.15.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -214,6 +213,23 @@
                     <source>16</source>
                     <target>16</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>4.15.0</version>
+                <configuration>
+                    <propertyFile>${liquibase.config}</propertyFile>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>clearCheckSums</goal>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

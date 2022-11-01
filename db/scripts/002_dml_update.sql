@@ -2,7 +2,7 @@ INSERT INTO accident_type(name)
 VALUES ('type1'),
        ('type2'),
        ('type3');
-INSERT INTO accident(name, text, address, accident_type_id)
+INSERT INTO accident(name, description, address, accident_type_id)
 VALUES ('name1', 'text1', 'address1', 1),
        ('name2', 'text2', 'address2', 2),
        ('name3', 'text3', 'address3', 3);
