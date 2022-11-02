@@ -47,7 +47,7 @@ class RegControlTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/login"));
         ArgumentCaptor<User> argument = ArgumentCaptor.forClass(User.class);
-        verify(service).save( argument.capture());
+        verify(service).save(argument.capture());
         assertThat(argument.getValue().getUsername()).isEqualTo("name");
     }
 }
