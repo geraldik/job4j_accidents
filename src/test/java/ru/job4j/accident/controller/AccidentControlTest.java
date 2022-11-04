@@ -10,10 +10,12 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.job4j.accident.Main;
 import ru.job4j.accident.model.Accident;
+import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.service.AccidentService;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -52,6 +54,8 @@ class AccidentControlTest {
     @Test
     @WithMockUser
     public void checkEditFormPage() throws Exception {
+        given(this.service.findById(1)).willReturn(new Accident(1, "name", "text",
+                "address", new AccidentType(1, "typeName")));
         this.mockMvc.perform(get("/formEditAccident/1").param("id", "1"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -78,7 +82,6 @@ class AccidentControlTest {
     @WithMockUser
     public void shouldReturnDefaultMessageEditAccidentPost() throws Exception {
         this.mockMvc.perform(post("/editAccident")
-                        .param("id", "1")
                         .param("name", "accident")
                         .param("description", "accident description")
                         .param("address", "address")
