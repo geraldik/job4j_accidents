@@ -10,6 +10,8 @@
         <relativePath/>
     </parent>
 
+    <packaging>war</packaging>
+
     <groupId>ru.job4j</groupId>
     <artifactId>job4j_accidents</artifactId>
     <version>1.0</version>
@@ -87,7 +89,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -158,6 +159,12 @@
             <artifactId>liquibase-core</artifactId>
             <version>4.15.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.3.2</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
